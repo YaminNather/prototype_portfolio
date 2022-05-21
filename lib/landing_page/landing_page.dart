@@ -1,4 +1,10 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import '../widgets/slides_view/slides_controller.dart';
+import '../widgets/slides_view/slides_view.dart';
+import 'slide_0/slide_0.dart';
+import 'slide_1/slide_1.dart';
+import 'slides_age_indicator.dart';
 
 class LandingPage extends StatefulWidget {
   const LandingPage({Key? key}) : super(key: key);
@@ -10,7 +16,7 @@ class LandingPage extends StatefulWidget {
 class LandingPageState extends State<LandingPage> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold();
+    return Scaffold(body: _buildBody());
   }
 
   PreferredSizeWidget _buildAppBar() {
@@ -35,12 +41,35 @@ class LandingPageState extends State<LandingPage> {
   }
 
   Widget _buildBody() {
-    return SlidesView(
+    return Column(      
       children: <Widget>[
-        Slide0(),
+        Expanded(
+          child: SlidesView(            
+            controller: _slidesController,
+            sensitivity: 0.0002,
+            slides: const <Widget>[
+              Slide0(),
 
-        Slide1()
+              Slide1()              
+            ]
+          )
+        ),
+
+        FutureBuilder<void>(
+          future: Future.delayed(const Duration()),
+          builder: (context, snapshot) {
+            if(snapshot.connectionState != ConnectionState.done)
+              return const SizedBox.shrink();
+
+            return SizedBox(
+              height: 16.0,
+              child: SlidesAgeIndicator(slidesController: _slidesController)
+            );
+          }
+        )
       ]
     );
   }
+
+  final SlidesController _slidesController = SlidesController();
 }
