@@ -29,7 +29,6 @@ class _SlidesViewState extends State<SlidesView> {
             _controller.onScrolled(event.scrollDelta);
         },
         child: Container(
-          width: double.infinity, height: double.infinity,
           color: Colors.transparent,
           child: Stack(children: _getWrappedSlidesWithData())
         )
