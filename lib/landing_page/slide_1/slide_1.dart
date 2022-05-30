@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import '../../widgets/slides_view/slide/slide.dart';
 import '../../widgets/link.dart';
-import '../../widgets/slides_view/slide/slide_age_hit_point.dart';
 
 class Slide1 extends StatefulWidget {
   const Slide1({Key? key}) : super(key: key);

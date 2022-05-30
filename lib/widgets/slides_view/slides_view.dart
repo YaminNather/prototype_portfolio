@@ -19,20 +19,25 @@ class SlidesView extends StatefulWidget {
 class _SlidesViewState extends State<SlidesView> {
   @override
   Widget build(BuildContext context) {
-    _controller.updateDataFromWidget(widget.sensitivity, widget.slides.length);
+    _controller.updateDataFromWidget(widget.sensitivity, widget.slides.length);  
 
     return ChangeNotifierProvider<SlidesController>(
-      create: (context) => _controller,
+      create: (context) => _controller,      
       child: Listener(
         onPointerSignal: (event) {
-          if(event is PointerScrollEvent)
-            _controller.onScrolled(event.scrollDelta);
+          GestureBinding.instance.pointerSignalResolver.register(
+            event,
+            (event) {
+              if(event is PointerScrollEvent)
+               _controller.onScrolled(event.scrollDelta);
+            }
+          );          
         },
         child: Container(
           width: double.infinity, height: double.infinity,
           color: Colors.transparent,
           child: Stack(children: _getWrappedSlidesWithData())
-        )
+        ),
       )
     );
   }

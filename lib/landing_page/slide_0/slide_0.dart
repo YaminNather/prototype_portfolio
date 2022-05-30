@@ -14,6 +14,10 @@ class _Slide0State extends State<Slide0> {
   @override
   Widget build(BuildContext context) {
     return Slide(
+      onEnterEntryTransition: () => print('CustomLog: Slide 0 entered entry transition'),
+      onExitEntryTransition: () => print('CustomLog: Slide 0 exited entry transition'),
+      onEnterExitTransition: () => print('CustomLog: Slide 0 entered exit transition'),
+      onExitExitTransition: () => print('CustomLog: Slide 0 exited exit transition'),
       entryTransitionBuilder: (content, lifeFactor) {
         return _buildContent(1.0);
       },

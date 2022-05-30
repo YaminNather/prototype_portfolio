@@ -43,5 +43,12 @@ class _SlidesAgeIndicatorState extends State<SlidesAgeIndicator> {
 
   void _update() => setState(() {});
 
+  @override
+  void dispose() {
+    _slidesController.removeListener(_update);
+
+    super.dispose();
+  }
+
   late SlidesController _slidesController;
 }

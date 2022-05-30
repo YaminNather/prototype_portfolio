@@ -9,6 +9,8 @@ class SlidesController extends ChangeNotifier {
   }
 
   void onScrolled(final Offset delta) {
+    print('CustomLog: Scroll delta = $delta');
+
     double newScrollFactor = _scrollFactor.value + (delta.dy * _sensitivity);
     newScrollFactor = newScrollFactor.clamp(0, _pagesCount.toDouble());    
     _scrollFactor.value = newScrollFactor;
@@ -17,13 +19,7 @@ class SlidesController extends ChangeNotifier {
     notifyListeners();
   }
 
-  int currentPage() {
-    return _scrollFactor.value.truncate();
-  }
-
-  int _getFinalPageIndex() {
-    return _pagesCount - 1;
-  }
+  int currentPage() => _scrollFactor.value.truncate();
 
   ReactiveValue<double> get scrollFactor => _scrollFactor;
 

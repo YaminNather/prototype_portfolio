@@ -9,12 +9,16 @@ import 'slide_state.dart';
 
 class Slide extends StatefulWidget {
   const Slide({
-    Key? key, 
-    this.onEntered,
-    this.onStateChanged,
-    this.onExited,
+    Key? key,
+    this.onStateChanged,    
     this.entryTransitionDurationFactor = 0.1,
     this.exitTransitionDurationFactor = 0.1,
+    this.onEnter,
+    this.onExit,
+    this.onEnterEntryTransition,
+    this.onExitEntryTransition,
+    this.onEnterExitTransition,
+    this.onExitExitTransition,
     this.entryTransitionBuilder,
     required this.activeBuilder,
     this.exitTransitionBuilder,    
@@ -23,12 +27,16 @@ class Slide extends StatefulWidget {
 
   @override
   State<Slide> createState() => _SlideState();
-
-  final void Function()? onEntered;
-  final void Function(SlideState state)? onStateChanged;  
-  final void Function()? onExited;
+  
+  final void Function(SlideState state)? onStateChanged;
   final double entryTransitionDurationFactor;
   final double exitTransitionDurationFactor;
+  final void Function()? onEnter;
+  final void Function()? onExit;
+  final void Function()? onEnterEntryTransition;
+  final void Function()? onExitEntryTransition;
+  final void Function()? onEnterExitTransition;
+  final void Function()? onExitExitTransition;
   final Widget Function(BuildContext context, double lifeFactor)? entryTransitionBuilder;
   final Widget Function(BuildContext context, double lifeFactor) activeBuilder;
   final Widget Function(BuildContext context, double lifeFactor)? exitTransitionBuilder;
@@ -50,8 +58,14 @@ class _SlideState extends State<Slide> {
     _controller.updateWithWidgetData(
       slidesController: slidesController, 
       index: slideData.index, 
+      onEnter: widget.onEnter,
+      onExit: widget.onExit,
       entryTransitionDurationFactor: widget.entryTransitionDurationFactor,
       exitTransitionDurationFactor: widget.exitTransitionDurationFactor,
+      onEnterEntryTransition: widget.onEnterEntryTransition,
+      onExitEntryTransition: widget.onExitEntryTransition,
+      onEnterExitTransition: widget.onEnterExitTransition,
+      onExitExitTransition: widget.onExitExitTransition,
       hitPoints: widget.activeHitPoints
     );    
   
@@ -65,8 +79,6 @@ class _SlideState extends State<Slide> {
       r = widget.exitTransitionBuilder?.call(context, _controller.rangeAgeFactor);
     
     r ??= widget.activeBuilder(context, _controller.rangeAgeFactor);
-
-    print('CustomLog: Slide at index ${_controller.index} = ${_controller.visibility}');
 
     return Visibility(
       maintainState: true,

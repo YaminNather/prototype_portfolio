@@ -4,6 +4,7 @@ import '../widgets/slides_view/slides_controller.dart';
 import '../widgets/slides_view/slides_view.dart';
 import 'slide_0/slide_0.dart';
 import 'slide_1/slide_1.dart';
+import 'slide_2/slide_2.dart';
 import 'slides_age_indicator.dart';
 
 class LandingPage extends StatefulWidget {
@@ -50,7 +51,9 @@ class LandingPageState extends State<LandingPage> {
             slides: const <Widget>[
               Slide0(),
 
-              Slide1()              
+              Slide1(),
+
+              Slide2()
             ]
           )
         ),
