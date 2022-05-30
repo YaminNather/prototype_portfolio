@@ -34,7 +34,6 @@ class _SlidesViewState extends State<SlidesView> {
           );          
         },
         child: Container(
-          width: double.infinity, height: double.infinity,
           color: Colors.transparent,
           child: Stack(children: _getWrappedSlidesWithData())
         ),
